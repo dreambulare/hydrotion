@@ -41,7 +41,7 @@ Copy `.env.example` to `.env.local` for local development.
 | --- | --- | --- |
 | `NOTION_TOKEN` | Yes | Internal Notion integration token. Treat this as a secret. |
 | `NOTION_DATA_SOURCE_ID` | One of data source or database | Preferred Notion data source ID. |
-| `NOTION_DATABASE_ID` | One of data source or database | Notion database ID. Hydrotion resolves the first visible data source from it. |
+| `NOTION_DATABASE_ID` | One of data source or database | Notion database ID or database URL. Hydrotion extracts the ID and resolves the first visible data source from it. |
 | `HYDROTION_SITE_URL` | No | Public base URL. Defaults to `http://localhost:3000`. |
 | `HYDROTION_REFRESH_SECRET` | Yes for revalidation | Bearer token required by `/api/revalidate`. Treat this as a secret. |
 | `HYDROTION_CACHE_PROVIDER` | No | `filesystem`, `memory`, or `cloudflare`. Defaults to `filesystem`. |
@@ -224,10 +224,10 @@ pnpm wrangler secret put NOTION_TOKEN
 pnpm wrangler secret put HYDROTION_REFRESH_SECRET
 ```
 
-Set one of the Notion IDs as a runtime variable in the Cloudflare dashboard:
+Set one of the Notion values as a runtime variable in the Cloudflare dashboard:
 
 - `NOTION_DATA_SOURCE_ID`
-- `NOTION_DATABASE_ID`
+- `NOTION_DATABASE_ID`, either as a bare ID or a Notion database URL such as `https://app.notion.com/p/be7763e8cfd54337be2eaf474af82c1c?v=...`
 
 Also set:
 

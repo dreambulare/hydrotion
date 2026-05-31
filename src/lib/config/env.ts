@@ -1,10 +1,24 @@
 import "server-only";
 import { z } from "zod";
+import { extractNotionDatabaseId } from "@/src/lib/notion/ids";
+
+const notionDatabaseIdSchema = z.string().min(1).transform((value, context) => {
+  const id = extractNotionDatabaseId(value);
+  if (!id) {
+    context.addIssue({
+      code: "custom",
+      message: "NOTION_DATABASE_ID must be a Notion database ID or a Notion database URL."
+    });
+    return z.NEVER;
+  }
+
+  return id;
+});
 
 const envSchema = z.object({
   NOTION_TOKEN: z.string().min(1).optional(),
   NOTION_DATA_SOURCE_ID: z.string().min(1).optional(),
-  NOTION_DATABASE_ID: z.string().min(1).optional(),
+  NOTION_DATABASE_ID: notionDatabaseIdSchema.optional(),
   HYDROTION_SITE_URL: z.string().url().default("http://localhost:3000"),
   HYDROTION_REFRESH_SECRET: z.string().min(8).optional(),
   HYDROTION_CACHE_PROVIDER: z.enum(["memory", "filesystem", "cloudflare"]).default("filesystem"),
