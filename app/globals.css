@@ -19,10 +19,18 @@ html {
   color: var(--ink);
   font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, serif;
   line-height: 1.55;
+  min-height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
+  min-height: 100svh;
+}
+
+body > main {
+  flex: 1;
 }
 
 a {

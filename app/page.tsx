@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getPostSummaries, getSite, getTopics } from "@/src/lib/notion/repository";
 import { getPageParam, paginateItems } from "@/src/lib/content/pagination";
 import { Pagination } from "@/src/components/Pagination";
@@ -6,6 +7,22 @@ import { SetupState } from "@/src/components/SetupState";
 import { SiteChrome } from "@/src/components/SiteChrome";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const site = await getSite();
+    const title = site.description ? `${site.title} - ${site.description}` : site.title;
+
+    return {
+      title: {
+        absolute: title
+      },
+      description: site.description || undefined
+    };
+  } catch {
+    return {};
+  }
+}
 
 export default async function HomePage({
   searchParams
