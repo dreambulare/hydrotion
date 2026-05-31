@@ -3,7 +3,7 @@
   "name": "hydrotion",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-30",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
@@ -11,8 +11,17 @@
   "observability": {
     "enabled": true
   },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "hydrotion"
+    }
+  ],
   "vars": {
     "HYDROTION_CACHE_PROVIDER": "cloudflare",
     "HYDROTION_MEDIA_PROVIDER": "cloudflare"
+  },
+  "secrets": {
+    "required": ["NOTION_TOKEN", "HYDROTION_REFRESH_SECRET"]
   }
 }

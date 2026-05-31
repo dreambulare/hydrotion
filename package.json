@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "harness": "node --import tsx harness/hydrotion-content-harness.ts",
     "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:cloudflare:keep-vars": "opennextjs-cloudflare build && opennextjs-cloudflare deploy -- --keep-vars",
     "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
   "dependencies": {
