@@ -1,0 +1,43 @@
+{
+  "name": "hydrotion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "harness": "node --import tsx harness/hydrotion-content-harness.ts",
+    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
+  },
+  "dependencies": {
+    "@notionhq/client": "^5.0.0",
+    "next": "^16.2.6",
+    "react": "latest",
+    "react-dom": "latest",
+    "server-only": "^0.0.1",
+    "zod": "^4.2.0"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "latest",
+    "@testing-library/dom": "latest",
+    "@testing-library/react": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.6",
+    "jsdom": "latest",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vite-tsconfig-paths": "latest",
+    "vitest": "latest",
+    "wrangler": "latest"
+  },
+  "packageManager": "pnpm@11.2.2"
+}

@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+dist
+.env
+.env.local
+.hydrotion-cache
+.hydrotion-media
+coverage
+*.tsbuildinfo
