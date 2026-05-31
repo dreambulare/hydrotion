@@ -5,22 +5,26 @@ export function SiteChrome({ site, topics, children }: { site: HydrotionSite; to
   return (
     <>
       <header className="site-header">
-        <Link className="brand" href="/">
-          <SiteIcon site={site} />
-          <span>{site.title}</span>
-        </Link>
-        <nav aria-label="Topics">
-          {topics.map((topic) => (
-            <Link href={`/topic/${topic.id}`} key={topic.id}>
-              {topic.name}
-            </Link>
-          ))}
-        </nav>
+        <div className="site-header-inner">
+          <Link className="brand" href="/">
+            <SiteIcon site={site} />
+            <span>{site.title}</span>
+          </Link>
+          <nav aria-label="Topics">
+            {topics.map((topic) => (
+              <Link href={`/topic/${topic.id}`} key={topic.id}>
+                {topic.name}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </header>
       <main>{children}</main>
       <footer className="site-footer">
-        <a href="https://github.com/dreambulare/hydrotion">Hydrotion</a>
-        <span>Notion-backed publishing with cache-first rendering.</span>
+        <div className="site-footer-inner">
+          <a href="https://github.com/dreambulare/hydrotion">Hydrotion</a>
+          <span>Notion-backed publishing with cache-first rendering.</span>
+        </div>
       </footer>
     </>
   );

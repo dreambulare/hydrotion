@@ -40,8 +40,12 @@ a {
 }
 
 .site-header {
-  align-items: center;
   border-bottom: 1px solid var(--rule);
+  width: 100%;
+}
+
+.site-header-inner {
+  align-items: center;
   display: flex;
   gap: 24px;
   justify-content: space-between;
@@ -90,10 +94,15 @@ a {
 .site-footer {
   border-top: 1px solid var(--rule);
   color: var(--muted);
-  display: flex;
   font-size: 0.9rem;
+  margin-top: 64px;
+  width: 100%;
+}
+
+.site-footer-inner {
+  display: flex;
   justify-content: space-between;
-  margin: 64px auto 0;
+  margin: 0 auto;
   max-width: var(--max);
   padding: 26px clamp(18px, 4vw, 42px);
 }
@@ -466,8 +475,8 @@ td {
 }
 
 @media (max-width: 720px) {
-  .site-header,
-  .site-footer,
+  .site-header-inner,
+  .site-footer-inner,
   .home-intro,
   .post-list a {
     display: block;
