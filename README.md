@@ -1,12 +1,15 @@
-# Hydrotion
+# Hydrotion (formerly as NotionPaper)
 
-Hydrotion turns a Notion database or data source into a cache-first public blog.
+Hydrotion (formerly as NotionPaper) turns a Notion database or data source into a cache-first public blog.
 
 It is a Next.js App Router rewrite of the old NotionPaper prototype. Notion remains the source of truth, while Hydrotion adds structured content parsing, media proxying, cache-first rendering, theme hooks, Cloudflare deployment, and container deployment.
 
 Demo: [hydrotion.dreambulare.com](https://hydrotion.dreambulare.com/)
 
 Repository: [dreambulare/hydrotion](https://github.com/dreambulare/hydrotion)
+
+## Usage & tutorial
+Check [hydrotion.dreambulare.com](https://hydrotion.dreambulare.com/).
 
 ## Features
 
