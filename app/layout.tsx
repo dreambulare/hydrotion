@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getEnv } from "@/src/lib/config/env";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const theme = getEnv().HYDROTION_THEME;
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme}>
       <body>{children}</body>
     </html>
   );

@@ -51,7 +51,7 @@ Copy `.env.example` to `.env.local` for local development.
 | `HYDROTION_CACHE_DIR` | No | Filesystem directory for rendered content cache. |
 | `HYDROTION_MEDIA_PROVIDER` | No | `filesystem`, `memory`, or `cloudflare`. Defaults to `filesystem`. |
 | `HYDROTION_MEDIA_DIR` | No | Filesystem directory for proxied Notion media. |
-| `HYDROTION_THEME` | No | Theme key reserved for custom themes. |
+| `HYDROTION_THEME` | No | Component-level theme key. Built-in values: `default`, `minimal`. |
 | `HYDROTION_REVALIDATE_SECONDS` | No | Time-based cache TTL in seconds. |
 
 ## Local Development
@@ -62,7 +62,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3100`.
 
 Run validation before publishing changes:
 
@@ -72,6 +72,81 @@ pnpm test
 pnpm lint
 pnpm build
 ```
+
+## Custom Layout Themes
+
+Hydrotion themes are component-level layout themes, not only color tokens. A theme can replace:
+
+- Site chrome: navigation, footer, surrounding page frame.
+- Home layout: hero, post list, pagination placement.
+- Topic layout.
+- Post layout: cover position, title treatment, table of contents placement, content grid.
+
+Built-in themes live in:
+
+```text
+src/themes/default
+src/themes/minimal
+```
+
+Select a theme with:
+
+```env
+HYDROTION_THEME=minimal
+```
+
+To create a new theme:
+
+1. Copy the sample theme:
+
+```bash
+cp -R src/themes/minimal src/themes/my-theme
+```
+
+2. Edit `src/themes/my-theme/index.tsx`.
+
+The theme module must export a `HydrotionTheme` object:
+
+```tsx
+export const myTheme: HydrotionTheme = {
+  name: "my-theme",
+  Chrome,
+  Home,
+  Topic,
+  Post
+};
+```
+
+3. Add styles to `app/globals.css`.
+
+Prefer scoping selectors by theme:
+
+```css
+[data-theme="my-theme"] {
+  --bg: oklch(98% 0.006 95);
+  --ink: oklch(19% 0.014 95);
+}
+
+.my-theme-home {
+  display: grid;
+}
+```
+
+4. Register the theme in `src/themes/registry.ts`:
+
+```ts
+import { myTheme } from "@/src/themes/my-theme";
+
+const themes = {
+  default: defaultTheme,
+  minimal: minimalTheme,
+  "my-theme": myTheme
+};
+```
+
+5. Set `HYDROTION_THEME=my-theme` and restart the app.
+
+Theme components receive typed data from Notion. The data types are defined in `src/themes/types.ts`, and shared date formatting helpers live in `src/themes/shared.ts`.
 
 ## Revalidation
 

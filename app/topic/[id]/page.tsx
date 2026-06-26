@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
-import { PostList } from "@/src/components/PostList";
 import { SetupState } from "@/src/components/SetupState";
-import { SiteChrome } from "@/src/components/SiteChrome";
 import { getSite, getTopics } from "@/src/lib/notion/repository";
+import { getTheme } from "@/src/themes/registry";
 
 export const dynamic = "force-dynamic";
 
@@ -20,15 +19,12 @@ export default async function TopicPage({ params }: Props) {
   if (!topic) {
     notFound();
   }
+  const theme = getTheme();
 
   return (
-    <SiteChrome site={site} topics={topics}>
-      <section className="topic-shell">
-        <p className="eyebrow">Topic</p>
-        <h1>{topic.name}</h1>
-        <PostList posts={topic.posts} />
-      </section>
-    </SiteChrome>
+    <theme.Chrome site={site} topics={topics}>
+      <theme.Topic topic={topic} />
+    </theme.Chrome>
   );
 }
 

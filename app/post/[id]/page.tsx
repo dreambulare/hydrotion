@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlockRenderer, TableOfContents } from "@/src/components/BlockRenderer";
 import { SetupState } from "@/src/components/SetupState";
-import { SiteChrome } from "@/src/components/SiteChrome";
 import { getPost, getSite, getTopics, resolvePostId } from "@/src/lib/notion/repository";
+import { getTheme } from "@/src/themes/registry";
 
 export const dynamic = "force-dynamic";
 
@@ -43,41 +42,12 @@ export default async function PostPage({ params }: Props) {
   if (!post) {
     notFound();
   }
-  const toc = post.blocks.find((block) => block.type === "table_of_contents")?.toc;
+  const theme = getTheme();
 
   return (
-    <SiteChrome site={site} topics={topics}>
-      <article className="article-shell">
-        <header className="article-header">
-          {post.coverUrl ? (
-            <div className="article-cover-wrap">
-              <img alt="" className="article-cover" src={post.coverUrl} />
-            </div>
-          ) : (
-            <div className="article-fallback-backdrop" />
-          )}
-          <div className={toc?.length ? "article-header-text has-toc" : "article-header-text"}>
-            <div className="article-title-block">
-              <p className="eyebrow">{post.topic?.name ?? "Post"}</p>
-              <time className="article-date" dateTime={post.createdAt}>
-                {formatDate(post.createdAt)}
-              </time>
-              <h1>{post.title}</h1>
-            </div>
-          </div>
-        </header>
-        <div className={toc?.length ? "article-grid has-toc" : "article-grid"}>
-          {toc?.length ? (
-            <aside className="article-toc">
-              <TableOfContents toc={toc} />
-            </aside>
-          ) : null}
-          <div className="article-content">
-            <BlockRenderer blocks={post.blocks} />
-          </div>
-        </div>
-      </article>
-    </SiteChrome>
+    <theme.Chrome site={site} topics={topics}>
+      <theme.Post post={post} />
+    </theme.Chrome>
   );
 }
 
@@ -90,13 +60,4 @@ async function loadPostData(params: Props["params"]) {
   } catch (error) {
     return { ok: false as const, error };
   }
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return "Undated";
-  }
-
-  return new Intl.DateTimeFormat("en", { year: "numeric", month: "long", day: "numeric" }).format(date);
 }
