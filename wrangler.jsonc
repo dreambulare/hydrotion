@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "hydrotion",
+  "name": "dreambulare",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
